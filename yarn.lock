@@ -2491,7 +2491,7 @@ fb-watchman@^2.0.0:
   dependencies:
     bser "^2.0.0"
 
-fbjs@^0.8.1, fbjs@^0.8.4, fbjs@^0.8.5, fbjs@^0.8.6, fbjs@^0.8.9:
+fbjs@^0.8.1, fbjs@^0.8.14, fbjs@^0.8.4, fbjs@^0.8.5, fbjs@^0.8.6, fbjs@^0.8.9:
   version "0.8.14"
   resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-0.8.14.tgz#d1dbe2be254c35a91e09f31f9cd50a40b2a0ed1c"
   dependencies:
@@ -3843,6 +3843,10 @@ klaw@^1.0.0:
   optionalDependencies:
     graceful-fs "^4.1.9"
 
+konva@^1.6.7:
+  version "1.6.7"
+  resolved "https://registry.yarnpkg.com/konva/-/konva-1.6.7.tgz#1b5267a293b9bf3587c2bec9edb23cd546448369"
+
 latest-version@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/latest-version/-/latest-version-2.0.0.tgz#56f8d6139620847b8017f8f1f4d78e211324168b"
@@ -5167,6 +5171,15 @@ react-event-listener@^0.4.5:
     fbjs "^0.8.4"
     prop-types "^15.5.4"
     warning "^3.0.0"
+
+react-konva@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/react-konva/-/react-konva-1.1.4.tgz#35e49e57097cae085e0fc7aeb7748ee6a993c7aa"
+  dependencies:
+    create-react-class "^15.6.0"
+    fbjs "^0.8.14"
+    object-assign "^4.1.1"
+    prop-types "^15.5.10"
 
 react-router@3.0.2:
   version "3.0.2"
