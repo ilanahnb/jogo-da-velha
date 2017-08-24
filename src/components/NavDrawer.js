@@ -8,7 +8,7 @@ import { NavToggleButton } from '../styled/NavDrawer'
 
 class NavDrawer extends Component {
   state = {
-    open: true,
+    open: false,
     width: 250
   }
 
