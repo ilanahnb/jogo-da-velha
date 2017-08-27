@@ -7,7 +7,8 @@ Full-stack React and Relay app where users can play tic tac toe.
 * [Create React App](https://github.com/facebookincubator/create-react-app) to quickly create a new starter project
 * [Relay](https://facebook.github.io/relay/), a JavaScript framework for building data-driven React applications
 * [Heroku](https://devcenter.heroku.com) to quickly and easily deploy the app using a simple GIT repository-like interface
-* [Graphcool](https://www.graph.cool) to create the database models as tables with columns and rows
+* [Graphcool](https://www.graph.cool) to create the database models as tables with columns and rows. It's a flexible backend platform combining GraphQL + Serverless
+* [Auth0](https://auth0.com/) for user authentication
 * [Material-UI](http://www.material-ui.com), a set of React Components that Implement Google's Material Design
 * [Styled Components](https://www.styled-components.com) for quick styles
 * [React Konva](https://github.com/lavrton/react-konva), a JavaScript library for drawing complex canvas graphics using React
