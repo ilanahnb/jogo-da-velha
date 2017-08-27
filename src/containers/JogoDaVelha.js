@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { Stage } from 'react-konva'
 import { Board, Squares } from '../styled/JogoDaVelha'
+import Relay from 'react-relay'
+import TuringTest from '../styled/TuringTest'
+import CreateGame from '../mutations/CreateGame'
 
 
 class JogoDaVelha extends Component {
@@ -53,7 +56,6 @@ class JogoDaVelha extends Component {
   }
 
   move = (index, marker) => {
-    console.log('Move made', marker, index)
     this.setState( (prevState, props) => {
       let {gameState, yourTurn, gameOver, winner} = prevState
       yourTurn = !yourTurn
@@ -110,11 +112,39 @@ class JogoDaVelha extends Component {
   }
 
   turingTest = () => {
-
+    if (this.state.gameOver) {
+      return (
+        <TuringTest
+          recordGame={this.recordGame}
+        />
+      )
+    }
   }
 
-  recordGame = () => {
+  recordGame = (guess) => {
+    let { user } = this.props.viewer
+    let { relay } = this.props
+    let { winner, ownMark } = this.state
 
+    if (user) {
+      let winnerId = (winner === ownMark) ? user.id : undefined
+      let guessCorrect = (guess === 'ROBOT') ? true : false
+      relay.commitUpdate(
+        new CreateGame({
+          user,
+          winnerId,
+          guess,
+          guessCorrect
+        })
+      )
+    }
+    this.setState({
+      gameState: new Array(9).fill(false),
+      gameOver: false,
+      yourTurn: true,
+      winner: false,
+      win: false
+    })
   }
 
   render() {
@@ -153,9 +183,22 @@ class JogoDaVelha extends Component {
             move={this.move}
           />
         </Stage>
+        {this.turingTest()}
       </div>
     )
   }
 }
 
-export default JogoDaVelha
+export default Relay.createContainer(
+  JogoDaVelha, {
+    fragments: {
+      viewer: () => Relay.QL`
+        fragment on Viewer {
+          user {
+            id
+          }
+        }
+      `,
+    }
+  }
+)

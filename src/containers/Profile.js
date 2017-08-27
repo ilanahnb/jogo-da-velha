@@ -1,34 +1,15 @@
 import React, { Component } from 'react'
 import { Container, Name, GameList, GameListHeader, GameRecord, Column, ColumnLabels } from '../styled/Profile'
+import Relay from 'react-relay'
 
 
 class Profile extends Component {
 
-  static defaultProps = {
-    user: {
-      email: 'USER_EMAIL',
-      games: [
-        {
-          winner: true,
-          createdAt: '24-08-2017',
-          id: '0001'
-        },
-        {
-          winner: true,
-          createdAt: '23-08-2017',
-          id: '0002'
-        },
-        {
-          winner: true,
-          createdAt: '22-08-2017',
-          id: '0003'
-        }
-      ]
-    }
-  }
-
   get records() {
-    return this.props.user.games.map( (game, index) => {
+    return this.props.viewer.user.p1games.edges.map( (edge, index) => {
+      // rename node as game
+      let { node: game } = edge
+
       return (
         <GameRecord
           key={index}
@@ -38,13 +19,13 @@ class Profile extends Component {
             {(game.winner) ? "Won!" : "Lost..."}
           </Column>
           <Column>
-            "Robot"
+            {game.p1Guess}
           </Column>
           <Column>
-            "Yes"
+            {(game.p1GuessCorrect) ? "Yes" : "Nope"}
           </Column>
           <Column>
-            {game.createdAt}
+            {new Date(game.createdAt).toLocaleDateString()}
           </Column>
         </GameRecord>
       )
@@ -53,7 +34,7 @@ class Profile extends Component {
 
   render() {
 
-    let {email} = this.props.user
+    let {email} = this.props.viewer.user
 
     return (
       <Container>
@@ -85,4 +66,30 @@ class Profile extends Component {
   }
 }
 
-export default Profile
+export default Relay.createContainer(
+  Profile, {
+    fragments: {
+      viewer: () => Relay.QL`
+        fragment on Viewer {
+          user {
+            id
+            email
+            p1games (first: 10) {
+              edges {
+                node {
+                  id
+                  createdAt
+                  winner {
+                    id
+                  }
+                  p1Guess
+                  p1GuessCorrect
+                }
+              }
+            }
+          }
+        }
+      `,
+    }
+  }
+)

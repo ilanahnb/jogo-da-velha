@@ -3,20 +3,30 @@ import { Route, IndexRoute } from 'react-router'
 import Template from '../containers/Template'
 import JogoDaVelha from '../containers/JogoDaVelha'
 import Profile from '../containers/Profile'
+import Relay from 'react-relay'
+import auth from '../utils/auth'
 
+
+const ViewerQueries = {
+  viewer: () => Relay.QL`query { viewer }`
+}
 
 const createRoutes = () => {
   return (
     <Route
       path='/'
       component={Template}
+      queries={ViewerQueries}
+      auth={auth}
     >
       <IndexRoute
         component={JogoDaVelha}
+        queries={ViewerQueries}
       />
       <Route
-        path='/profile'
+        path={'/profile'}
         component={Profile}
+        queries={ViewerQueries}
       />
     </Route>
   )
